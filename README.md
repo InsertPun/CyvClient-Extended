@@ -10,8 +10,8 @@ https://discord.gg/a9qQZdVGZx
 ### Installation
 1. Download the Zip File corresponding to the version you wish to use.
 2. Take the folder inside (should be named **CyvClient**) and place it inside your **/.minecraft/versions** folder.
-3. Open up the Minecraft Launcher and create a new launcher profile.
-4. Drag the CyvClient.jar file into the 'CyvClient' version folder
+3. Drag the CyvClient.jar file into the 'CyvClient' version folder
+4. Open up the Minecraft Launcher and create a new launcher profile.
 
 *NOTE: if you already have CyvClient installed, follow the steps under **Updating** ignore the version zip file.*
 
