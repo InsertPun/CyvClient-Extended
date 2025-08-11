@@ -12,7 +12,7 @@ https://discord.gg/a9qQZdVGZx
 2. Take the folder inside (should be named **CyvClient**) and place it inside your **/.minecraft/versions** folder.
 3. Open up the Minecraft Launcher and create a new launcher profile.
 4. Drag the CyvClient.jar file into the 'CyvClient' version folder
-# NOTE: if you already have CyvClient installed, follow the steps under **Updating** ignore the version zip file.
+*NOTE: if you already have CyvClient installed, follow the steps under **Updating** ignore the version zip file.*
 
 ### Updating
 Download the zip file as usual, open up the folder inside and take the jar file and replace your existing CyvClient folder (in **/.minecraft/versions**) with the new one. You do not need to recreate the launcher profile.
