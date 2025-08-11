@@ -17,8 +17,9 @@ Finished features (in order of completion - all of these are either DONE or spec
 		- (Iteration 4) I think fixed this bug by swapping around getting entity data (?) and something else (needs more testing to be sure - update: haven't crashed in over a month using it, might be fixed)
 4. Add 'Grounded' Label (lights up RED when in air or GREEN if on ground) 
 	- (FIXED - Iteration 4) BUGFIX: Have PRETURN label be first (before JA and 2-12 turn labels)
+	- Also added input history between this iteration and the next iteration (haven't finished all of the features )
 5. Add a 'Runtime' label that displays the amount of ticks player 'runs' for (check how HH timing is calculated - might be useful) 
-6. Add mark timings to Last Timing label (TESTING)
+6. Add mark timings to Last Sidestep label (TESTING)
 7. Fixed a few bugs with Control Presets and also made a few quality of life changes (Note: if changing versions switch preset to DEFAULT or some preset that you don't mind being overwritten))
 	1. Properly displays relevant text when renaming or creating a new preset. Previously when adding or renaming a preset it displays the same text 
 	   ('Account Switcher' at the top -> Now should display either 'Create New Preset' and 'Rename Selected Preset' at the top)
@@ -32,13 +33,14 @@ Finished features (in order of completion - all of these are either DONE or spec
 			- If you remove a preset, and immediately choose another preset. The removed preset's controls will overwrite the preset immediately below it (that moved up into its position).
 			- If you remove a preset at the end of the list, the removed preset's controls will overwrite controls of the preset immediately above it
 8. Added minimal view bobbing addon that overwrites vanilla Minecraft View Bobbing setting
+9. Fixed bug that occurs when raw input is on while mouse disconnects which caused mouse to stop moving, even after reconnecting. Previously you have to restart the game to fix this.
+	- Added /cyv rescan command to client to fix this. Whenever mouse disconnect happens, use this command to regain movement.
 ------------------------------------------------------------------------------------------------------
 
 Features to add/Bugs to fix ('-->' = currently working on, '-' = will be added but not now, '-?' = idk/check with hpk staff)
 ------------------------------------------------------------------------------------------------------
---> (BUG) when mouse disconnects, it won't move even after reconnecting, you have to restart the game to fix this currently (raw input issue)
-	- Add /rescan command to client to fix this (look at the source code for raw input mod, it might help)
-	- (???) Might need to recode raw input, this might be the cause of some occasional frame stutters I've been having (make more robust and automatic)
+--> Add /getPosition command that copies current coordinates/facing to clipboard
+--> Add label that displays coordinates of target block
 --> Create a label/addon that displays player inputs for number of held ticks (as a viewable/constantly changing list of inputs in-game) (IN-DEVELOPMENT)
 DONE	- Will only save inputs for 'WASD' 'Sneak' 'Sprint' 'Jump' 
 DONE	- holding down same inputs will increment tick count. 'ticks #:' will not be visible, just here for demonstration purposes 
@@ -65,9 +67,8 @@ DONE	- Should display either turn amount or current facing on top of user input 
 		- display current facing (f coord)
 		- display turn amount difference between current and last ticks
 		- display both
-			- Should also have the option for 
 		- display neither
-		Should look like this: 
+		Should look like this (Both): 
 		- [10t W A S D Spr Snk Jmp f45(-30)] <-- 10 is the number of ticks the input stayed the same       
 WIP	- Add a keybind that pauses/unpauses the current input list (stops receiving new inputs and also stops erasing old inputs)
 WIP	- Add option to pause input list upon landing a jump
@@ -99,26 +100,15 @@ WIP	- Add XYZ coordinates to input history (toggleable)
 -? Add the ability to create subsections/folders in stratreminders mod for better organization
 -? Add 'Schematica reload' mod (or at least a cheap copy of it to make rebuilding jumps easier? idk might be too difficult)
 -? Add something that changes colors of certain specified labels when in a set range of values (user specified)
-- Add /getPosition command that copies current coordinates/facing to clipboard
-- Add label that displays coordinates of target block
+-? Add 'AutoCP' toggle to anti-cp mod, automatically sets cp on landing a jump (OJ)
+-? Add a way to randomized /unprac whenever prac item is used (randomly unpracs when activated)
 - Add a /record start/stop command and keybind 
 - Add a /clip command and keybind 
 - Add option to SAVE current macro (If name isn't changed it will be saved as 'name#' and should update text field in game too)
-- Add 'Custom Timing' Label that functions the same as Last Timing but also displays USER created timings (should use the same files used to run macros)
+-? Add 'Custom Timing' Label that functions the same as Last Timing but also displays USER created timings (should use the same files used to run macros)
+- Create GUI that allows you to make presets/profiles that saves current landing block, current landing condition, current pb, current mm block, etc., and allows you to load them whenever you want 
+	- these should be saved even after closing the game.
+- (BUG) Make vertical rotate effect ALL lines in a strat (not just a single line)
+- (BUG) fix 'depth' toggle in stratreminder mod (allows strats to be seen through walls)
+- (Bug) Make strats only render in when the player is nearby (add a slider to determine how large the render radius around the player should be)
 ------------------------------------------------------------------------------------------------------
-
-Slightly unrelated Bugs/Features (not issues with cyvclient itself)
-------------------------------------------------------------------------------------------------------
-- (BUG) Nvidia Alt+Z bugs out and keeps teleporting cursor to corner of screen when opened 
-	- This was due to the 'optimizations for windowed game' setting being on and for some reason, not working with new NVIDIA driver updates
-- (BUG) Mouse cursor disappears sometimes. Seems to occur whenever I spam open Nvidia's overlay using Alt+Z.
-	- This issue also seems to be related to the 'optimizations for windowed game' issue I have above. Should be fixed, but continue monitoring just incase.
-- (BUG) Player skin when opening inventory is bugged. 
-	- This seems to be an issue on Minecraft's client side?, after updating launcher this was seemingly fixed. Continue monitoring if this problem appears again
-- When a key is pressed make a keyboard click sound (in-game) only do this for the 7 main keys? (WASD Jmp Spr Snk) (tactile keysounds - make into seperate addon (keyboard sounds mod))
-	- Make a GUI menu that allows user to swap between different key sounds. Ideally, this should work like resource packs, however if its not possible, just add sounds in manually.
-	- Was planning on implementing this as a mod in cyvclient, however I found that the external software 'Mechvibes' does exactly what I want, 
-	  so this is no longer necessary to implement.
-------------------------------------------------------------------------------------------------------
-
-
