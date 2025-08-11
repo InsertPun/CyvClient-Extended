@@ -1,0 +1,124 @@
+Finished features (in order of completion - all of these are either DONE or specified as TESTING) 
+------------------------------------------------------------------------------------------------------
+1. Add 3-12 tick turn labels 
+	- (Iteration 8) - Minor change to turn angles making them function more like MPKmod2's 3-12 turn angles 
+			 (previous iteration precalculated next airtick's turn angle when current tick's angle was received, resulting in wrong calculations for a tick). 
+2. Save current game sensitivity to Control Presets too (TESTING) 
+	- (FOUND) BUG #1 - Sometimes Control Presets do not save to their correct slots (ex: controls for 'valor' preset suddenly become those for 'd11 loop' preset) 
+		- Not entirely sure how this bug occurs, sometimes it occurs when changing versions other times it doesn't, it can also randomly happen even if booting up the same version.
+			- Bug instance #1: The jar file for CyvClient is swapped (with major changes)
+			- Bug instance #2: When I switch Minecraft versions
+				- (FOUND BUG) when switching MC versions or ControlPreset.json files the controls from the previous instance of MC overwrites whatever current Preset is active 
+					- IDEA TO FIX: don't save previous preset of previous instance of MC when loading all presets in during current instance of MC.
+		  I don't really have a fix for this atm except whenever the jar file is swapped/updated make sure to keep a backup copy of the .minecraft/cyvclient folder 
+		- Even after reading the backup copy of the CyvClient folder the sensitivity still resets to 0 for some reason (check this out later)
+3. Fix the better crosshair addon's option to light up when looking at entity (TESTING)
+	- (FIXED?) BUG #1 - I had a crash during my first iteration using it but am not entirely sure how the crash happened. There should be a few crash reports on this in the logs.
+		- (Iteration 4) I think fixed this bug by swapping around getting entity data (?) and something else (needs more testing to be sure - update: haven't crashed in over a month using it, might be fixed)
+4. Add 'Grounded' Label (lights up RED when in air or GREEN if on ground) 
+	- (FIXED - Iteration 4) BUGFIX: Have PRETURN label be first (before JA and 2-12 turn labels)
+5. Add a 'Runtime' label that displays the amount of ticks player 'runs' for (check how HH timing is calculated - might be useful) 
+6. Add mark timings to Last Timing label (TESTING)
+7. Fixed a few bugs with Control Presets and also made a few quality of life changes (Note: if changing versions switch preset to DEFAULT or some preset that you don't mind being overwritten))
+	1. Properly displays relevant text when renaming or creating a new preset. Previously when adding or renaming a preset it displays the same text 
+	   ('Account Switcher' at the top -> Now should display either 'Create New Preset' and 'Rename Selected Preset' at the top)
+	   ('Create' button -> displays 'Create' text when creating a new preset and 'Rename' text when renaming a preset)
+	2. After adding a new preset, the new preset should be selected instead of the original preset
+	3. Fixed bug where deleting a preset in Control Presets deletes the desired preset in the GUI, however the actual controls for the preset below it gets deleted instead 
+  		(likely because the preset below shifts into the deleted one's position?)
+		- The preset below the deleted one takes on its controls and the controls for that preset gets deleted instead
+		- The other presets above and below these two seem unaffected 
+		- (info) When you remove a preset, press 'back', the removed preset is still active. Then when you go back to choose another preset from here, it works normally.
+			- If you remove a preset, and immediately choose another preset. The removed preset's controls will overwrite the preset immediately below it (that moved up into its position).
+			- If you remove a preset at the end of the list, the removed preset's controls will overwrite controls of the preset immediately above it
+8. Added minimal view bobbing addon that overwrites vanilla Minecraft View Bobbing setting
+------------------------------------------------------------------------------------------------------
+
+Features to add/Bugs to fix ('-->' = currently working on, '-' = will be added but not now, '-?' = idk/check with hpk staff)
+------------------------------------------------------------------------------------------------------
+--> (BUG) when mouse disconnects, it won't move even after reconnecting, you have to restart the game to fix this currently (raw input issue)
+	- Add /rescan command to client to fix this (look at the source code for raw input mod, it might help)
+	- (???) Might need to recode raw input, this might be the cause of some occasional frame stutters I've been having (make more robust and automatic)
+--> Create a label/addon that displays player inputs for number of held ticks (as a viewable/constantly changing list of inputs in-game) (IN-DEVELOPMENT)
+DONE	- Will only save inputs for 'WASD' 'Sneak' 'Sprint' 'Jump' 
+DONE	- holding down same inputs will increment tick count. 'ticks #:' will not be visible, just here for demonstration purposes 
+		Example (for 3t hh):
+		- tick 1: W Sprint (3t)
+		- tick 4: W Sprint Jump (1t)
+		- tick 5: W Sprint (*t) -> player releases space bar on next tick and * means to continue incrementing until player changes inputs
+		Example (for Rex bwmm)
+		- tick 1: S Jump Sprint (1t)
+		- tick 2: S Sprint (11t)
+		- tick 13: WA Jump Sprint (1t)
+		- tick 14: W Sprint Jump (*t)
+DONE	- No activity (All inputs pressed for 999 ticks will result in '999t+' essentially stopping the tick counter until new inputs registered) 
+		- if toggle-sprint/sneak is enabled then time inputs out? 
+ 		- Question: What should we do about inactivity or if player holds down the button for too long? 
+			- I.e. Doing nothing will also increment tick count (since some jumps require wait 1t etc.)
+			- I.e. toggle sprint enabled means 'Sprint' will able be held -> then player goes afk -> tick count goes up infinitely
+			time out inactivity after like 100 ticks?
+DONE	- Should have an option to increase/decrease size of label (size of the entire label)
+DONE	- Should have an option in cyvclient settings to change number of input lines displayed on the screen at once (1-50 lines) [Fade out doesn't work with drawstring function - alpha not recognized]
+		- number of input lines should determine height of list
+DONE	- Should display either turn amount or current facing on top of user input (have an option for both) next to inputs. Make this feature optional/can be disabled too.
+		Options (Summarized above bullet point):	
+		- display current facing (f coord)
+		- display turn amount difference between current and last ticks
+		- display both
+			- Should also have the option for 
+		- display neither
+		Should look like this: 
+		- [10t W A S D Spr Snk Jmp f45(-30)] <-- 10 is the number of ticks the input stayed the same       
+WIP	- Add a keybind that pauses/unpauses the current input list (stops receiving new inputs and also stops erasing old inputs)
+WIP	- Add option to pause input list upon landing a jump
+WIP	- Add option to display arrows instead of WASD like in kurrycat's mpk mod
+DONE	- Add an option (enable/disable) that if player right clicks (uses cp) then input history will reset
+DONE	- Add an option (enable/disable) that makes inputs stay until they get deleted (no tick age) [TESTING]
+DONE	- Add slider for input visibility length (how long the input stays visible for after new inputs come in 10 - 300 ticks)
+DONE	- (BUG) InputHistory should be a parkour mod/addon, it should NOT be in the general category
+WIP	- Add 'Input History' text on the input history box itself (up/down arrow -> isInverted)
+WIP	- Add 'Color' option for ticks, keys inputs, and facing/turn angles (each would be separate)
+WIP? 	-? Add a keybind/command/button (maybe all 3) that saves current input history as macro file (probably too complicated to implement tbh)
+		- if this can be done, maybe also increase input history size from 50 MAX to 100 MAX or something
+WIP?	-? (Somehow) add a indicator/label that lights up green/red when user correctly does a set of inputs 
+		- May have to implement a separate GUI for jumps that are more lenient? 
+		  (idk how to go about this, if too difficult to implement or is considered cheating, scrap this idea)
+WIP	- Add XYZ coordinates to input history (toggleable)
+
+-? Add an in game customizable metronome (20 sounds per second for # of ticks and user can add as many seconds as they need and change which of the 20 sounds play in each second? (concept idea))
+	- feature: resets metronome upon right click (checkpoint)
+	- End Goal: Turn MCPK into a rhythm game (lmao)
+-? Add a button (somewhere) that allows user to save all current Label positions and visibility as a preset (similar to Control Presets)
+-? Finish adding dynamic surrounding sounds (review Dynamic surrounding mod 1.8.9 source code on GitHub)
+-? Give player the ability to change size of labels and also group together labels to drag around (like selecting multiple files in file explorer for example)
+	- May be too difficult to do (if major overhaul is required, abandoned this idea)
+- (BUG) when scrolling down in GUI, mod settings (gear icon) gets displaced and lights up above actual hover location
+
+-? Add ingame journal/notepad addon + keybind. Should be able to create as many notebooks/journals as needed. Should have regular text actions (copy, paste, highlight, middle text edit, etc.)
+-? Add option for togglesprint to UNTOGGLE sprint whenever sprint key is held while toggle sprint is enabled (basically the opposite of togglesprint)
+-? Add the ability to create subsections/folders in stratreminders mod for better organization
+-? Add 'Schematica reload' mod (or at least a cheap copy of it to make rebuilding jumps easier? idk might be too difficult)
+-? Add something that changes colors of certain specified labels when in a set range of values (user specified)
+- Add /getPosition command that copies current coordinates/facing to clipboard
+- Add label that displays coordinates of target block
+- Add a /record start/stop command and keybind 
+- Add a /clip command and keybind 
+- Add option to SAVE current macro (If name isn't changed it will be saved as 'name#' and should update text field in game too)
+- Add 'Custom Timing' Label that functions the same as Last Timing but also displays USER created timings (should use the same files used to run macros)
+------------------------------------------------------------------------------------------------------
+
+Slightly unrelated Bugs/Features (not issues with cyvclient itself)
+------------------------------------------------------------------------------------------------------
+- (BUG) Nvidia Alt+Z bugs out and keeps teleporting cursor to corner of screen when opened 
+	- This was due to the 'optimizations for windowed game' setting being on and for some reason, not working with new NVIDIA driver updates
+- (BUG) Mouse cursor disappears sometimes. Seems to occur whenever I spam open Nvidia's overlay using Alt+Z.
+	- This issue also seems to be related to the 'optimizations for windowed game' issue I have above. Should be fixed, but continue monitoring just incase.
+- (BUG) Player skin when opening inventory is bugged. 
+	- This seems to be an issue on Minecraft's client side?, after updating launcher this was seemingly fixed. Continue monitoring if this problem appears again
+- When a key is pressed make a keyboard click sound (in-game) only do this for the 7 main keys? (WASD Jmp Spr Snk) (tactile keysounds - make into seperate addon (keyboard sounds mod))
+	- Make a GUI menu that allows user to swap between different key sounds. Ideally, this should work like resource packs, however if its not possible, just add sounds in manually.
+	- Was planning on implementing this as a mod in cyvclient, however I found that the external software 'Mechvibes' does exactly what I want, 
+	  so this is no longer necessary to implement.
+------------------------------------------------------------------------------------------------------
+
+
