@@ -15,11 +15,6 @@ https://discord.gg/a9qQZdVGZx
 5. Open up the Minecraft Launcher and in the 'Installations' tab, create a new launcher profile (or installation).
 6. Give the new installation a name, then under 'VERSION' find 'release CyvClient' then click 'Install'.
 
-*NOTE: if you already have CyvClient installed, follow the steps under **Updating**.
-=======
-3. Drag the CyvClient.jar file into the 'CyvClient' version folder
-4. Open up the Minecraft Launcher and create a new launcher profile.
-
 *NOTE: if you already have CyvClient installed, follow the steps under **Updating** ignore the version zip file.*
 
 ### Updating
