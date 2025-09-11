@@ -1,21 +1,12 @@
 Major Changes:
-Added Input History Mod (WIP)
-Added Better View Bobbing Mod (WIP)
+- Added Customizable Sounds for Vanilla minecraft, CyvClient, and Dynamic Surroundings under QOL config settings and DSMod settings (Only a select few sounds for CyvClient and current DS mod)
 
 Minor Changes:
-Fixed depth toggle (see through walls in StratReminder mod)
-Changed vertical rotation to include ALL lines, not just a single line [if nobody like this, I'll revert back to single line]
-Doubled the character cap of each stratreminder line from 40 to 80 characters
-Added strat render range slider (10-80) [if someone else has a better set of values, let me know]
+- Changed StratReminder render range from 10-80 blocks to 5-50 blocks away
+- Increased max AntiCP delay time to 5.0s
+- Added toggleable sound effect for landing jump (in Parkour category config - CyvClient sound)
+- Adding size slider to custom sidebar mod
 
-Added 1-20 tick turn label slider (in MpkMod settings) and compressed label into a single 'Turn Angles' label in the MPK Gui
-Added Grounded label
-Added Runtime label
-Added Marks to Last Sidestep label
-
-Added /cyv rescan command for Raw Input mouse disconnect
-Added /mpk getcoords command that copies the player's current x y z yaw pitch into the clipboard
-
-Mouse sensitivity is now saved in Control Presets
-Fixed a few bugs and renamed a few things in Control Presets and MPK labels
-Fixed(?) a bug with account switcher that crashes when trying to switch accounts
+Bugfixes
+- Fixed Account Switcher for java jdks which have JavaFX included (BellSoft-Liberica-Full-8 for example).
+  Adding new accounts using Account Switcher doesn't work if you don't use a jdk with JavaFX, since it needs to open up a Microsoft login Webview. 
